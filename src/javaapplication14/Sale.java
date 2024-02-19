@@ -8,7 +8,7 @@ package javaapplication14;
  *
  * @author Nameless
  */
-public class Sale {
+class Sale {
     private Customer customer;
     private String date;
     private double serviceExpense;
@@ -40,17 +40,28 @@ public class Sale {
     }
 
     public double getTotalExpense() {
-        double discount = customer.getServiceMemberDiscount() * serviceExpense;
-        serviceExpense -= discount;
         return serviceExpense + productExpense;
     }
+
     public void displayInfo() {
-        System.out.println("Customer Name: " + customer.getCustomerName());
-        System.out.println("Customer Type: " + customer.getCustomerType());
-        System.out.println("Date: " + date);
-        System.out.println("Service Expense: $" + serviceExpense);
-        System.out.println("Product Expense: $" + productExpense);
-        System.out.println("Total Expense: $" + getTotalExpense());
+        double serviceDiscountRate = customer.getServiceMemberDiscount(customer.getCustomerType());
+        double productDiscountRate = customer.getProductMemberDiscount(customer.getCustomerType());
+        double serviceDiscount = serviceExpense * serviceDiscountRate;
+        double productDiscount = productExpense * productDiscountRate;
+        double totalDiscount = serviceDiscount + productDiscount;
+        double payableAmount = getTotalExpense() - totalDiscount;
+        System.out.println("==========================Transaction================================");
+        System.out.println("==========================Customer Info==============================");
+        System.out.println("ExerciseOne.Customer: " + customer.getCustomerName());
+        System.out.println("Membership: " + customer.getCustomerType());
+        System.out.println("Date(yyyy-mm-dd): " + date);
+        System.out.println("==========================Expenses Info===============================");
+        System.out.println("Expense on Service: $" + serviceExpense);
+        System.out.println("Discount: $" + serviceDiscount);
+        System.out.println("Expense on Product : $" + productExpense);
+        System.out.println("Discount: $" + productDiscount);
+        System.out.println("Total Expense: $" + payableAmount);
         System.out.println();
     }
 }
+

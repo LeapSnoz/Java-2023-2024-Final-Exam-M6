@@ -9,6 +9,6 @@ package javaapplication14;
  * @author Nameless
  */
 public interface DiscountRate {
-    double getServiceMemberDiscount();
-    double getProductMemberDiscount();
+    double getServiceMemberDiscount(String customerType);
+    double getProductMemberDiscount(String customerType);
 }

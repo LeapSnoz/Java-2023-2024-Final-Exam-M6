@@ -8,7 +8,7 @@ package javaapplication14;
  *
  * @author Nameless
  */
-public class Customer implements DiscountRate {
+class Customer implements DiscountRate {
     private String customerName;
     private String customerType;
 
@@ -34,7 +34,7 @@ public class Customer implements DiscountRate {
     }
 
     @Override
-    public double getServiceMemberDiscount() {
+    public double getServiceMemberDiscount(String customerType) {
         switch (customerType) {
             case "Premium":
                 return 0.2;
@@ -48,8 +48,14 @@ public class Customer implements DiscountRate {
     }
 
     @Override
-    public double getProductMemberDiscount() {
-        // All customer types get the same discount on products
-        return 0.1;
+    public double getProductMemberDiscount(String customerType) {
+        switch (customerType) {
+            case "Premium":
+            case "Gold":
+            case "Silver":
+                return 0.1;
+            default:
+                return 0;
+        }
     }
 }
